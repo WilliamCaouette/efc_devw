@@ -21,6 +21,7 @@ app.use(cors());
 
 const shortId = require("shortid");
 const db = require("quick.db");
+const shortid = require("shortid");
 
 //----------------------------------------
 // Fichiers "statiques"
@@ -32,12 +33,12 @@ app.get("/", (req, res) => {
 //-------------------------------
 // Get
 
-// Récupérer toute la collection //
+// Récupérer toute la collection
 app.get("/api/quizz", (req, res) => {
     res.send(db.get("quizz.list"));
 });
 
-// Récupérer un item de la collection //
+// Récupérer un item de la collection
 app.get("/api/quizz/:id", (req, res) => {
     const quizz = db.get("quizz.list").find((c) => c.id == req.params.id);
 
@@ -51,8 +52,31 @@ app.get("/api/quizz/:id", (req, res) => {
 //-------------------------------
 // Post
 
+app.post("/api/quizz", (req, res) => {
+    const quizz = {
+        id: shortid.generate(),
+        name: req.body.name,
+    };
+    // Stocker le cours dans la bd
+    db.push("quizz.list", quizz);
+    // Envoyer la réponse au client
+    res.status(200).send(quizz);
+});
+
 //-------------------------------
 // Update
+
+app.put("/api/quizz/:id", (req, res) => {
+    const quizzList = db.get("quizz.list");
+    const quizz = quizzList.find((c) => c.id == req.params.id);
+    if (!quizz) {
+        return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
+    }
+    quizz.name = req.body.name;
+    db.set("quizz.list", quizzList);
+    // Envoyer la réponse au client
+    res.status(200).send(quizz);
+});
 
 //-------------------------------
 // Delete (optionnel)
