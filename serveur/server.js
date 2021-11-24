@@ -1,4 +1,4 @@
-// npm run devserver -> lance le script (pakage.json)
+// npm run devserver -> lance le script (package.json)
 
 // Initialiser Express
 const express = require("express");
@@ -19,9 +19,18 @@ app.use(cors());
 //----------------------------------------
 // Base de données
 
-const shortId = require("shortid");
-const db = require("quick.db");
 const shortid = require("shortid");
+console.log(shortid.generate());
+const db = require("quick.db");
+
+if (!db.has("cours")) {
+    db.set("cours", {});
+}
+
+/*db.push("quizz.list", {
+    id: shortid.generate(),
+    name: "Test de test",
+});*/
 
 //----------------------------------------
 // Fichiers "statiques"
