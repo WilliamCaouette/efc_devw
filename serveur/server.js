@@ -9,7 +9,7 @@ const path = require("path");
 //-------------------------------------
 // Middlewares
 
-app.use(express.static("public"));
+app.use(express.static("api"));
 
 app.use(express.json());
 
@@ -20,23 +20,28 @@ app.use(cors());
 // Base de données
 
 const shortid = require("shortid");
-console.log(shortid.generate());
 const db = require("quick.db");
 
-if (!db.has("cours")) {
-  db.set("cours", {});
+if (!db.has("quizz")) {
+  db.set("quizz", {});
 }
 
-/*db.push("quizz.list", {
-    id: shortid.generate(),
-    name: "Test de test",
+/* Pour nettoyer l'api
+db.set("quizz", {});*/
+
+/* Pour envoyer un test (SEULEMENT UNE FOIS)
+db.push("quizz.list", {
+  id: shortid.generate(),
+  name: "Test de test",
 });*/
+
+/* FAIRE UN PUSH DE MOTS COMPRIS PAR L'IA */
 
 //----------------------------------------
 // Fichiers "statiques"
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
+  res.sendFile(path.join(__dirname, "../api", "index.html"));
 });
 
 //-------------------------------
@@ -94,7 +99,7 @@ app.put("/api/quizz/:id", (req, res) => {
 // 404
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "404.html"));
+  res.sendFile(path.join(__dirname, "../api", "404.html"));
 });
 
 //-----------------------------------
@@ -106,11 +111,4 @@ app.listen(port, () => {
   console.log(`Express écoute le port ${port}`);
 });
 
-/* 
-Création de routes : 
--une pour crée, 
--une pour toutes les récup, 
--une pour en récup une seule
-*/
-/*Adapter le code : "express-api-rest-quickdb"*/
-/* Dernière Version du script */
+/* installer Thunder client (sorte de postman) à la maison */
