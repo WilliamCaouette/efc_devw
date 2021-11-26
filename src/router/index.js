@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import Quizz from "../views/Quizz.vue";
 import Home from '../views/Home.vue'
 
 const routes = [
@@ -7,6 +8,7 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  { path: '/quizz/:id', name: 'Quizz', component: Quizz }
 ]
 
 const router = createRouter({
