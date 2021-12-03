@@ -10,7 +10,7 @@
             <textarea name="description" id="description" cols="30" rows="10" style="resize:none"></textarea>
         </div>
         <div>
-            <div>
+            <div v-for="mot in mots" :key="mot.id">
                 <label for="mot">{{mot.mot}}</label>
                 <input type="checkbox" name="mot" id="mot">
             </div>
@@ -22,7 +22,27 @@
 
 <script>
 export default {
-
+    data(){
+        return {
+            mots : [
+                {
+                    id:0,
+                    mot: "mot1",
+                    isChoose : false
+                },
+                {
+                    id:1,
+                    mot: "mot2",
+                    isChoose : false
+                },
+                {
+                    id:2,
+                    mot: "mot3",
+                    isChoose : false
+                },
+            ]
+        }
+    }
 }
 </script>
 

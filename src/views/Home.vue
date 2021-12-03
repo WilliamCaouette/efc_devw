@@ -2,7 +2,7 @@
   <div class="home">
     <div class="top-bar">
       <h1>GuessMyDraw</h1>
-      <button class="btn-add">+Ajouter un Quizz</button>
+      <router-link :to="'/addquizzform'">+Ajouter un Quizz</router-link>
     </div>
     <section class="container-flex">
       <div class="half-item">
