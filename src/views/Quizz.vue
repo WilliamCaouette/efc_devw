@@ -2,7 +2,7 @@
   <div>{{$route.params.id}}</div>
   <div>{{quizz.name}}</div>
   <div>{{quizz.description}}</div>
-  <div class="word"><span v-for="caracter in currentHiddenWord" :key="caracter">{{caracter + " "}}</span></div>
+  <div class="word"><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
   <div>
     <canvas width="100px" height="100px"></canvas>
   </div>
@@ -25,7 +25,8 @@ export default {
                 ]
               },
               currentWord : null,
-              currentHiddenWord : ""
+              currentHiddenWord : "",
+              prevWordId : 0
         }
     },
     methods:{
@@ -34,9 +35,11 @@ export default {
             let index;
             let caracterIsShow = false;
           do{
-            index = Math.floor(Math.random * this.currentHiddenWord.length);
+            
+            index = Math.floor(Math.random() * this.currentHiddenWord.length);
             caracterIsShow = false;
-            if(this.currentHiddenWord[index] != "_"){
+            if(this.currentHiddenWord[index] == "_" || this.isCurrentWordCompleted){
+              console.log(this.currentWord.word.length)
                 this.currentHiddenWord[index] = this.currentWord.word[index];
                 caracterIsShow = true;
             }
@@ -48,10 +51,14 @@ export default {
         else{
           this.currentWord.isValidate = false;
           clearInterval(this.showCaracter);
+          this.changeCurrentWord();
+          this.currentHiddenWord = this.hiddenWord;
         }
         
       },
-
+      changeCurrentWord(){
+        this.currentWord = this.quizz.words[this.prevWordId++];
+      }
     },
     beforeMount(){
       //fetch l'api avec l'id du quizz
@@ -74,6 +81,7 @@ export default {
       isCurrentWordCompleted(){
         let isCompleted;
         this.currentHiddenWord.indexOf("_") == -1 ? isCompleted = true : isCompleted = false;
+        return isCompleted;
       }
     }
 }
