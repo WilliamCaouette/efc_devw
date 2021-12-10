@@ -6,6 +6,9 @@
   <div>
     <canvas width="100px" height="100px"></canvas>
   </div>
+  <div class="end-sceen" v-if="gameIsDone">
+    <h1>Bien jouer voyons voir les résultats</h1>
+  </div>
 </template>
 
 <script>
@@ -40,9 +43,8 @@ export default {
             index = Math.floor(Math.random() * this.currentHiddenWord.length);
             caracterIsShow = false;
             if(this.currentHiddenWord[index] == "_" || this.isCurrentWordCompleted){
-              console.log(this.currentWord.word.length)
-                this.currentHiddenWord[index] = this.currentWord.word[index];
-                caracterIsShow = true;
+              this.currentHiddenWord[index] = this.currentWord.word[index];
+              caracterIsShow = true;
             }
             else{
               return
@@ -58,11 +60,12 @@ export default {
         
       },
       changeCurrentWord(){
-        if(this.quizz.words[this.prevWordId++]){
-          this.currentWord = this.quizz.words[this.prevWordId++];
+        let nextWordId = this.prevWordId++;
+        if(this.quizz.words[nextWordId]){
+          this.currentWord = this.quizz.words[nextWordId];
         }else{
           clearInterval(this.showCaracter);
-          this.gameIsDone = true
+          this.gameIsDone = true;
           console.log("game is done")
         }
       }
@@ -73,13 +76,13 @@ export default {
     mounted(){
       this.currentWord = this.quizz.words[0];
       this.currentHiddenWord = this.hiddenWord;
-      console.log(this.currentHiddenWord);
       setInterval(this.showCaracter, 2000);
 
     },
     computed: {
       hiddenWord(){
         let hiddenWord = [];
+        console.log(this.currentWord);
         for(let i = 0; i < this.currentWord.word.length; i++){
           hiddenWord.push("_");
         }

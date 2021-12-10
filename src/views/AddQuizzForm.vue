@@ -1,20 +1,28 @@
 <template>
     <form method="POST" action="../../serveur/api/quizz">
-    <div>
         <div>
-            <label for="name">Nom du quizz:</label>
-            <input type="text" id="name">
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <textarea name="description" id="description" cols="30" rows="10" style="resize:none"></textarea>
-        </div>
-        <div>
-            <div v-for="(mot, id) in mots" :key="id">
-                <label :for="'mot'+id">{{mot.mot}}</label>
-                <input @click="addWordToList(mot)" type="checkbox" v-model="mot.isChoose" name="mot" :id="'mot'+id">
+            <div>
+                <h2>Informations de base du Quizz</h2>
+            <div>
+                <label for="name">Nom du quizz:</label>
+                <input type="text" id="name">
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" cols="30" rows="10" style="resize:none"></textarea>
             </div>
         </div>
+        <div>
+            <h2>Choisissez vos mots</h2>
+            <div v-for="(mot, id) in mots" :key="id">
+                <label :for="'mot'+id">{{mot.mot}}</label>
+                <input @click="addWordToList(mot)" class="checkBox" type="checkbox" name="mot" :id="'mot'+id">
+            </div>
+        </div>
+        <div>
+            <input type="button" value="Ajouter le Quizz">
+        </div>
+
     </div>
 
     </form>
@@ -42,7 +50,7 @@ export default {
                 },
                 {
                     id:3,
-                    mot: "mot3",
+                    mot: "mot313",
                     isChoose : false
                 },
                 {
@@ -97,21 +105,26 @@ export default {
     },
     methods:{
         addWordToList(word){
-            if(word.isChoose == false && this.list.length <= 10){
+            if(word.isChoose == false && this.list.length < 10){
                 this.list.push(word.mot);
                 word.isChoose = true;
+                if(this.list.length ==10){
+                    document.querySelectorAll(".checkBox").forEach((chck)=>{
+                        if(!chck.checked){
+                            chck.disabled = true
+                        };
+                    })
+                };
             }
-            else if(word.isChoose == true){
+            else{
                 this.list = this.list.filter((wordInList)=>{
                     return wordInList != word.mot;
                 });
                 word.isChoose = false;
+                document.querySelectorAll(".checkBox").forEach((chck)=>{
+                        chck.disabled = false;
+                })
             }
-            else{
-                word.isChoose = false;
-                alert("vous ne pouvez pas choisir plus de 10 mots par quizz")
-            }
-            console.log(this.list)
         }
     }
 }
