@@ -26,7 +26,8 @@ export default {
               },
               currentWord : null,
               currentHiddenWord : "",
-              prevWordId : 0
+              prevWordId : 0,
+              gameIsDone: false
         }
     },
     methods:{
@@ -57,7 +58,13 @@ export default {
         
       },
       changeCurrentWord(){
-        this.currentWord = this.quizz.words[this.prevWordId++];
+        if(this.quizz.words[this.prevWordId++]){
+          this.currentWord = this.quizz.words[this.prevWordId++];
+        }else{
+          clearInterval(this.showCaracter);
+          this.gameIsDone = true
+          console.log("game is done")
+        }
       }
     },
     beforeMount(){

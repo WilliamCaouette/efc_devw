@@ -10,9 +10,9 @@
             <textarea name="description" id="description" cols="30" rows="10" style="resize:none"></textarea>
         </div>
         <div>
-            <div v-for="mot in mots" :key="mot.id">
-                <label for="mot">{{mot.mot}}</label>
-                <input type="checkbox" name="mot" id="mot">
+            <div v-for="(mot, id) in mots" :key="id">
+                <label :for="'mot'+id">{{mot.mot}}</label>
+                <input @click="addWordToList(mot)" type="checkbox" v-model="mot.isChoose" name="mot" :id="'mot'+id">
             </div>
         </div>
     </div>
@@ -40,7 +40,78 @@ export default {
                     mot: "mot3",
                     isChoose : false
                 },
-            ]
+                {
+                    id:3,
+                    mot: "mot3",
+                    isChoose : false
+                },
+                {
+                    id:4,
+                    mot: "mot4",
+                    isChoose : false
+                },
+                {
+                    id:5,
+                    mot: "mot5",
+                    isChoose : false
+                },
+                {
+                    id:6,
+                    mot: "mot6",
+                    isChoose : false
+                },
+                {
+                    id:7,
+                    mot: "mot7",
+                    isChoose : false
+                },
+                {
+                    id:8,
+                    mot: "mot8",
+                    isChoose : false
+                },
+                {
+                    id:9,
+                    mot: "mot9",
+                    isChoose : false
+                },
+                {
+                    id:10,
+                    mot: "mot10",
+                    isChoose : false
+                },
+                {
+                    id:11,
+                    mot: "mot11",
+                    isChoose : false
+                },
+                {
+                    id:12,
+                    mot: "mot12",
+                    isChoose : false
+                },
+
+            ],
+            list:[]
+        }
+    },
+    methods:{
+        addWordToList(word){
+            if(word.isChoose == false && this.list.length <= 10){
+                this.list.push(word.mot);
+                word.isChoose = true;
+            }
+            else if(word.isChoose == true){
+                this.list = this.list.filter((wordInList)=>{
+                    return wordInList != word.mot;
+                });
+                word.isChoose = false;
+            }
+            else{
+                word.isChoose = false;
+                alert("vous ne pouvez pas choisir plus de 10 mots par quizz")
+            }
+            console.log(this.list)
         }
     }
 }
