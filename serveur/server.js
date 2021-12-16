@@ -23,7 +23,7 @@ const shortid = require("shortid");
 const db = require("quick.db");
 
 if (!db.has("quizz")) {
-  db.set("quizz", {});
+    db.set("quizz", {});
 }
 
 /* Pour nettoyer l'api
@@ -41,7 +41,7 @@ db.push("quizz.list", {
 // Fichiers "statiques"
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../api", "index.html"));
+    res.sendFile(path.join(__dirname, "../api", "index.html"));
 });
 
 //-------------------------------
@@ -49,47 +49,47 @@ app.get("/", (req, res) => {
 
 // Récupérer toute la collection
 app.get("/api/quizz", (req, res) => {
-  res.send(db.get("quizz.list"));
+    res.send(db.get("quizz.list"));
 });
 
 // Récupérer un item de la collection
 app.get("/api/quizz/:id", (req, res) => {
-  const quizz = db.get("quizz.list").find((c) => c.id == req.params.id);
+    const quizz = db.get("quizz.list").find((c) => c.id == req.params.id);
 
-  if (!quizz) {
-    return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
-  }
+    if (!quizz) {
+        return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
+    }
 
-  res.status(200).send(quizz);
+    res.status(200).send(quizz);
 });
 
 //-------------------------------
 // Post
 
 app.post("/api/quizz", (req, res) => {
-  const quizz = {
-    id: shortid.generate(),
-    name: req.body.name,
-  };
-  // Stocker le cours dans la bd
-  db.push("quizz.list", quizz);
-  // Envoyer la réponse au client
-  res.status(200).send(quizz);
+    const quizz = {
+        id: shortid.generate(),
+        name: req.body.name,
+    };
+    // Stocker le cours dans la bd
+    db.push("quizz.list", quizz);
+    // Envoyer la réponse au client
+    res.status(200).send(quizz);
 });
 
 //-------------------------------
 // Update
 
 app.put("/api/quizz/:id", (req, res) => {
-  const quizzList = db.get("quizz.list");
-  const quizz = quizzList.find((c) => c.id == req.params.id);
-  if (!quizz) {
-    return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
-  }
-  quizz.name = req.body.name;
-  db.set("quizz.list", quizzList);
-  // Envoyer la réponse au client
-  res.status(200).send(quizz);
+    const quizzList = db.get("quizz.list");
+    const quizz = quizzList.find((c) => c.id == req.params.id);
+    if (!quizz) {
+        return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
+    }
+    quizz.name = req.body.name;
+    db.set("quizz.list", quizzList);
+    // Envoyer la réponse au client
+    res.status(200).send(quizz);
 });
 
 //-------------------------------
@@ -99,7 +99,7 @@ app.put("/api/quizz/:id", (req, res) => {
 // 404
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../api", "404.html"));
+    res.sendFile(path.join(__dirname, "../api", "404.html"));
 });
 
 //-----------------------------------
@@ -108,7 +108,7 @@ app.get("*", (req, res) => {
 const port = 3000;
 
 app.listen(port, () => {
-  console.log(`Express écoute le port ${port}`);
+    console.log(`Express écoute le port ${port}`);
 });
 
 /* installer Thunder client (sorte de postman) à la maison */

@@ -1,27 +1,35 @@
 <template>
-
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/*-- Navigation --*/
+
+.title {
+  color: #eee;
+}
+h1 a {
+  text-decoration: none;
+  color: #eee;
 }
 
-#nav {
-  padding: 30px;
+h1 a:hover {
+  text-decoration: none;
+  color: #eee;
+}
+.btn-secondary {
+  background-color: #4fd3a2;
+  border: none;
+  text-decoration: none;
+  transition: all 225ms ease-in-out;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.btn-secondary:hover {
+  background-color: #2db482;
+}
+nav {
+  background-color: #08454c;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+/*-- --*/
 </style>
