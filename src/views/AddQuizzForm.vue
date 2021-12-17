@@ -1,4 +1,5 @@
 <template>
+    <nav-bar></nav-bar>
     <form method="POST" action="../../serveur/api/quizz">
         <div>
             <div>
@@ -13,14 +14,14 @@
             </div>
         </div>
         <div>
-            <h2>Choisissez vos mots</h2>
-            <div v-for="(mot, id) in mots" :key="id">
-                <label :for="'mot'+id">{{mot.mot}}</label>
+            <h2>Choisissez vos words</h2>
+            <div v-for="(mot, id) in words" :key="id">
+                <label :for="'mot'+id">{{mot.name}}</label>
                 <input @click="addWordToList(mot)" class="checkBox" type="checkbox" name="mot" :id="'mot'+id">
             </div>
         </div>
         <div>
-            <input type="button" value="Ajouter le Quizz">
+            <input type="button" @click="addNewQuizz" value="Ajouter le Quizz">
         </div>
 
     </div>
@@ -29,86 +30,30 @@
 </template>
 
 <script>
+import NavBar from "../components/NavBar.vue";
 export default {
+  components: { NavBar },
+    beforeMount(){
+        fetch("http://127.0.0.1:3000/api/words")
+            .then(response=>{return response.json()})
+            .then(json=>{
+                json.forEach(word=>{
+                    this.words.push({name: word, isChoose:false});
+                })
+            })
+    },
     data(){
         return {
-            mots : [
-                {
-                    id:0,
-                    mot: "mot1",
-                    isChoose : false
-                },
-                {
-                    id:1,
-                    mot: "mot2",
-                    isChoose : false
-                },
-                {
-                    id:2,
-                    mot: "mot3",
-                    isChoose : false
-                },
-                {
-                    id:3,
-                    mot: "mot313",
-                    isChoose : false
-                },
-                {
-                    id:4,
-                    mot: "mot4",
-                    isChoose : false
-                },
-                {
-                    id:5,
-                    mot: "mot5",
-                    isChoose : false
-                },
-                {
-                    id:6,
-                    mot: "mot6",
-                    isChoose : false
-                },
-                {
-                    id:7,
-                    mot: "mot7",
-                    isChoose : false
-                },
-                {
-                    id:8,
-                    mot: "mot8",
-                    isChoose : false
-                },
-                {
-                    id:9,
-                    mot: "mot9",
-                    isChoose : false
-                },
-                {
-                    id:10,
-                    mot: "mot10",
-                    isChoose : false
-                },
-                {
-                    id:11,
-                    mot: "mot11",
-                    isChoose : false
-                },
-                {
-                    id:12,
-                    mot: "mot12",
-                    isChoose : false
-                },
-
-            ],
+            words : [],
             list:[]
         }
     },
     methods:{
         addWordToList(word){
-            if(word.isChoose == false && this.list.length < 10){
-                this.list.push(word.mot);
+            if(word.isChoose == false && this.list.length < 5){
+                this.list.push(word.name);
                 word.isChoose = true;
-                if(this.list.length ==10){
+                if(this.list.length ==5){
                     document.querySelectorAll(".checkBox").forEach((chck)=>{
                         if(!chck.checked){
                             chck.disabled = true
@@ -118,13 +63,41 @@ export default {
             }
             else{
                 this.list = this.list.filter((wordInList)=>{
-                    return wordInList != word.mot;
+                    return wordInList != word.name;
                 });
                 word.isChoose = false;
                 document.querySelectorAll(".checkBox").forEach((chck)=>{
                         chck.disabled = false;
                 })
             }
+        },
+          addNewQuizz(){
+            let newQuizz = {
+                id: "",
+                name: document.querySelector("#name").value,
+                description: document.querySelector("#description").value,
+                img: "img/placeholder.jpg",
+                words: []
+            }
+            this.choseWords.forEach(word=>{
+                newQuizz.words.push({word:word.name,isValidate:false});
+            })
+            console.log(newQuizz)
+            fetch('http://127.0.0.1:3000/api/quizz', {
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newQuizz)
+            });
+        }
+    },
+    computed:{
+        choseWords(){
+            return this.words.filter((word)=>{
+                return word.isChoose
+            })
         }
     }
 }

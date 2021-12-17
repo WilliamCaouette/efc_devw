@@ -26,6 +26,10 @@ if (!db.has("quizz")) {
     db.set("quizz", {});
 }
 
+if (!db.has("words")) {
+    db.set("words", ["carré", "virgule", "cercle", "trois", "cinq", "coeur", "dollar", "arbre"]);
+}
+
 /* Pour nettoyer l'api
 db.set("quizz", {});*/
 
@@ -51,6 +55,9 @@ app.get("/", (req, res) => {
 app.get("/api/quizz", (req, res) => {
     res.send(db.get("quizz.list"));
 });
+app.get("/api/words", (req, res) => {
+    res.send(db.get("words"));
+});
 
 // Récupérer un item de la collection
 app.get("/api/quizz/:id", (req, res) => {
@@ -67,30 +74,13 @@ app.get("/api/quizz/:id", (req, res) => {
 // Post
 
 app.post("/api/quizz", (req, res) => {
-    const quizz = {
-        id: shortid.generate(),
-        name: req.body.name,
-    };
-    // Stocker le cours dans la bd
+    let quizz = req.body;
+    quizz.id = shortid.generate();
     db.push("quizz.list", quizz);
-    // Envoyer la réponse au client
     res.status(200).send(quizz);
 });
 
-//-------------------------------
-// Update
 
-app.put("/api/quizz/:id", (req, res) => {
-    const quizzList = db.get("quizz.list");
-    const quizz = quizzList.find((c) => c.id == req.params.id);
-    if (!quizz) {
-        return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
-    }
-    quizz.name = req.body.name;
-    db.set("quizz.list", quizzList);
-    // Envoyer la réponse au client
-    res.status(200).send(quizz);
-});
 
 //-------------------------------
 // Delete (optionnel)
