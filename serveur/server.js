@@ -23,22 +23,19 @@ const shortid = require("shortid");
 const db = require("quick.db");
 
 if (!db.has("quizz")) {
-    db.set("quizz", {});
+    db.set("quizz", {list:[]});
 }
 
 if (!db.has("words")) {
     db.set("words", ["carré", "virgule", "cercle", "trois", "cinq", "coeur", "dollar", "arbre"]);
 }
 
-/* Pour nettoyer l'api
-db.set("quizz", {});*/
 
 /* Pour envoyer un test (SEULEMENT UNE FOIS)
 db.push("quizz.list", {
   id: shortid.generate(),
   name: "Test de test",
 });*/
-
 /* FAIRE UN PUSH DE MOTS COMPRIS PAR L'IA */
 
 //----------------------------------------
@@ -61,7 +58,7 @@ app.get("/api/words", (req, res) => {
 
 // Récupérer un item de la collection
 app.get("/api/quizz/:id", (req, res) => {
-    const quizz = db.get("quizz.list").find((c) => c.id == req.params.id);
+    const quizz = db.get("quizz.list").find((q) => q == req.params.id);
 
     if (!quizz) {
         return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
@@ -76,6 +73,7 @@ app.get("/api/quizz/:id", (req, res) => {
 app.post("/api/quizz", (req, res) => {
     let quizz = req.body;
     quizz.id = shortid.generate();
+    console.log(quizz)
     db.push("quizz.list", quizz);
     res.status(200).send(quizz);
 });

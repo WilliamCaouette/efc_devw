@@ -26,6 +26,7 @@
     </section>
     <section class="container">
       <h2>Liste de nos Quizz</h2>
+      <h3 v-if="!quizzList[0]">Aucun quizz n'as encore été créé</h3>
       <div class="list-quizz">
         <quizz-card
           v-for="quizz in quizzList"
@@ -46,37 +47,15 @@ export default {
   name: "Home",
   data() {
     return {
-      quizzList: [
-        {
-          name: "nom",
-          id: 0,
-          img: "img/placeholder.jpg",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iusto corrupti a ex placeat adipisci nostrum, doloremque velit quisquam consequatur aliquid impedit laboriosam necessitatibus dolorem",
-        },
-        {
-          name: "nom",
-          id: 1,
-          img: "img/placeholder.jpg",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iusto corrupti a ex placeat adipisci nostrum, doloremque velit quisquam consequatur aliquid impedit laboriosam necessitatibus dolorem",
-        },
-        {
-          name: "nom",
-          id: 2,
-          img: "img/placeholder.jpg",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iusto corrupti a ex placeat adipisci nostrum, doloremque velit quisquam consequatur aliquid impedit laboriosam necessitatibus dolorem",
-        },
-        {
-          name: "nom",
-          id: 3,
-          img: "img/placeholder.jpg",
-          description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut iusto corrupti a ex placeat adipisci nostrum, doloremque velit quisquam consequatur aliquid impedit laboriosam necessitatibus dolorem",
-        },
-      ],
+      quizzList: [],
     };
+  },
+  beforeMount(){
+    fetch("http://127.0.0.1:3000/api/quizz")
+            .then(response=>{return response.json()})
+            .then(json=>{
+                this.quizzList = json;
+            })
   },
 };
 </script>

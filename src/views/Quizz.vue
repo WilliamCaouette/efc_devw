@@ -1,4 +1,5 @@
 <template>
+  <nav-bar></nav-bar>
   <div>{{$route.params.id}}</div>
   <div>{{quizz.name}}</div>
   <div>{{quizz.description}}</div>
@@ -13,20 +14,13 @@
 
 <script>
 import { computed } from '@vue/reactivity';
+import NavBar from '../components/NavBar.vue';
 export default {
+  components: { NavBar },
     data(){
         return{
           // le quizz seras récupérer avec un fetch mais pour le moment c'est le placeholder
-             quizz: {
-                id:0,
-                name: "title",
-                description: "lorem blalabblalbalabllablablabllba",
-                words:[
-                  {word: "mot1", isValidate:false},
-                  {word: "mot2", isValidate:false},
-                  {word: "mot3", isValidate:false},
-                ]
-              },
+             quizz: {},
               currentWord : null,
               currentHiddenWord : "",
               prevWordId : 0,
@@ -34,6 +28,11 @@ export default {
         }
     },
     methods:{
+      startGame(){
+        this.currentWord = this.quizz.words[0];
+        this.currentHiddenWord = this.hiddenWord;
+        setInterval(this.showCaracter, 2000);
+      },
       showCaracter(){
         if(!this.isCurrentWordCompleted){
             let index;
@@ -71,13 +70,12 @@ export default {
       }
     },
     beforeMount(){
-      //fetch l'api avec l'id du quizz
-    },
-    mounted(){
-      this.currentWord = this.quizz.words[0];
-      this.currentHiddenWord = this.hiddenWord;
-      setInterval(this.showCaracter, 2000);
-
+      fetch(`http://127.0.0.1:3000/api/quizz/${this.$route.params.id}`)
+          .then(response=>{return response.json()})
+          .then(json=>{
+              this.quizz = json;
+              this.startGame();
+          })
     },
     computed: {
       hiddenWord(){
