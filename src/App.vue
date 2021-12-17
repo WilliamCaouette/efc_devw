@@ -71,6 +71,14 @@ nav {
   width: 50%;
 }
 
+.btn-jouer {
+  color: #fff;
+  text-decoration: none;
+  background-color: #2db482;
+  padding: 10px;
+  border-radius: 8px;
+}
+
 /* Media Query */
 @media screen and (max-width: 1500px) {
   .icone {
