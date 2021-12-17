@@ -5,6 +5,8 @@
   <div>{{quizz.description}}</div>
   <div class="word"><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
   <div>
+    <div id="canvasDiv"></div>
+    <button @click="erase">Effacer</button>
   </div>
   <div class="end-sceen" v-if="gameIsDone">
     <h1>Bien jouer voyons voir les résultats</h1>
@@ -23,7 +25,8 @@ export default {
               currentWord : null,
               currentHiddenWord : "",
               prevWordId : 0,
-              gameIsDone: false
+              gameIsDone: false,
+              dessin : "",
         }
     },
     methods:{
@@ -61,11 +64,15 @@ export default {
         let nextWordId = this.prevWordId++;
         if(this.quizz.words[nextWordId]){
           this.currentWord = this.quizz.words[nextWordId];
+          this.erase();
         }else{
           clearInterval(this.showCaracter);
           this.gameIsDone = true;
           console.log("game is done")
         }
+      },
+      erase(){
+        this.dessin.clear();
       }
     },
     beforeMount(){
@@ -75,6 +82,16 @@ export default {
               this.quizz = json;
               this.startGame();
           })
+    },
+    mounted(){
+      this.dessin = new JSCanvas(
+        400,
+        400,
+        document.querySelector("#canvasDiv"),
+        "#ffffff",
+        "#000000",
+        5
+      );
     },
     computed: {
       hiddenWord(){

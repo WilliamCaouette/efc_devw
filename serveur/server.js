@@ -58,12 +58,10 @@ app.get("/api/words", (req, res) => {
 
 // Récupérer un item de la collection
 app.get("/api/quizz/:id", (req, res) => {
-    const quizz = db.get("quizz.list").find((q) => q == req.params.id);
-
+    const quizz = db.get("quizz.list").find((q) => q.id == req.params.id);
     if (!quizz) {
         return res.status(404).send("Aucun quizz ne correspond à cet identifiant");
     }
-
     res.status(200).send(quizz);
 });
 
