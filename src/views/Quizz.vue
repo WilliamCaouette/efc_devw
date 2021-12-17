@@ -5,7 +5,6 @@
   <div>{{quizz.description}}</div>
   <div class="word"><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
   <div>
-    <canvas width="100px" height="100px"></canvas>
   </div>
   <div class="end-sceen" v-if="gameIsDone">
     <h1>Bien jouer voyons voir les résultats</h1>
