@@ -101,6 +101,21 @@ nav {
   color: #fff;
 }
 
+/*-- Formulaire de quizz : --*/
+
+.addition-form {
+  display: block;
+  width: 100%;
+  margin-top: 10%;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
+
+.addition-form h2 {
+  color: #0E4D5E;
+}
+
 /*-- Media Query --*/
 
 @media screen and (max-width: 1500px) {

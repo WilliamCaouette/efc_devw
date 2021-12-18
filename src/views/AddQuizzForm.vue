@@ -1,7 +1,9 @@
 <template>
     <nav-bar></nav-bar>
-    <form method="POST" action="../../serveur/api/quizz">
-        <div>
+        <section class="container">
+            <form method="POST" action="../../serveur/api/quizz">
+            
+        <div class="addition-form ">
             <div>
                 <h2>Informations de base du Quizz</h2>
             <div>
@@ -27,6 +29,7 @@
     </div>
 
     </form>
+        </section>
 </template>
 
 <script>
