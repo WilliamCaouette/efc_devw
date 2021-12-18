@@ -46,7 +46,7 @@ nav {
   width: 30%;
   font-size: 1.3em;
   text-align: justify;
-  right: 38%;
+  right: 48%;
   color: #fff;
   top: 38%;
 }
@@ -64,19 +64,33 @@ nav {
 
 .list-quizz {
   background-color: #89f7f7;
+  border-radius: 10px;
+  padding: 10px;
+  display: block;
+}
+
+.card-quizz {  
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.card-quizz p {
 }
 
 .card-quizz img {
-  background-color: #2e8da3;
   width: 50%;
+  padding: 10px;
+  background-color: #2e8da3; 
 }
 
 .btn-jouer {
-  color: #fff;
-  text-decoration: none;
-  background-color: #2db482;
+  position: relative;
+  top: 8%;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #2db482;
 }
 
 /* Media Query */
@@ -120,6 +134,12 @@ nav {
     right: 28%;
     top: 35%;
   }
+
+  /* Liste de quizz : */
+
+.list-quizz {
+  display: block;
+}
 }
 @media screen and (max-width: 767px) {
   .icone {
@@ -141,5 +161,10 @@ nav {
     right: 15%;
     top: 35%;
   }
+  .btn-jouer {
+  top: 10%;
+  padding: 8px;
+  border-radius: 6px;
+}
 }
 </style>
