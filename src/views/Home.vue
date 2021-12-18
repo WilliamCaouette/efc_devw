@@ -11,7 +11,7 @@
 
           <div class="paint-block">
             <p class="position-absolute explication-text">
-              Guess My Draw est un jeu de dessin où le joueur doit déchiffrer un
+              Guess My Drawing est un jeu de dessin où le joueur doit déchiffrer un
               mot dans un temps imparti et le faire deviner à l'aide d'un
               dessin.
             </p>

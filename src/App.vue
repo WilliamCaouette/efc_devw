@@ -8,7 +8,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
-/*-- Navigation --*/
+/*-- Navigation : Titre / Bouton d'ajout --*/
 
 .title {
   color: #eee;
@@ -61,39 +61,48 @@ nav {
   background-repeat: no-repeat;
 }
 
-/* Liste de quizz : */
+/*-- Liste de quizz : Nom du quizz / Description / Bouton jeu / Image / --*/
 
 .list-quizz {
-  background-color: #89f7f7;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #8ee9f2;
   border-radius: 10px;
 }
 
-.list-quizz h3 {
-  font-size: 1.8em;
-  color: #fff;
-   font-family: 'Orbitron', sans-serif;
+.description {
+  margin: 30px 50px 0 0px;
+  flex-basis: 52%;
 }
 
-.list-quizz p {
-  color: #fff;
-  font-size: 1.4em;
-  font-family: 'Orbitron', sans-serif;
+.flex-tier { 
+  flex-basis: 32%;
 }
 
 .btn-jouer {
   padding: 10px;
   border-radius: 6px;
-  color: #fff;
+  font-family: "Roboto", sans-serif;
+  color: #eee;
   background-color: #2db482;
 } 
 
-.card-quizz img {
-  width: 100%;
-  display: block;
-  background-color: #2e8da3; 
+ .list-quizz h3 {
+  font-size: 1.8em;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
 }
 
-/* Media Query */
+.list-quizz p {
+  font-size: 1.4em;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+}
+
+/*-- Media Query --*/
+
 @media screen and (max-width: 1500px) {
   .icone {
     width: 25%;
@@ -161,10 +170,18 @@ nav {
     right: 15%;
     top: 35%;
   }
-  .btn-jouer {
-  top: 10%;
-  padding: 8px;
+ .btn-jouer {
+  padding: 10px;
   border-radius: 6px;
+  position: absolute;
+} 
+.list-quizz {
+  margin: 0 ;
+  margin-bottom: 0;
+  padding: 6px;
+}
+.flex-tier { 
+  flex-basis: 100%;
 }
 }
 </style>
