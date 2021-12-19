@@ -27,6 +27,18 @@ export default {
               prevWordId : 0,
               gameIsDone: false,
               dessin : "",
+              options : {
+                version: 1,
+                alpha: 0.25,
+                topk: 3,
+                learningRate: 0.0001,
+                hiddenUnits: 100,
+                epochs: 300,
+                numLabels: 7,
+                batchSize: 0.4,
+              },
+              featureExtractor : "",
+              classifier : ""
         }
     },
     methods:{
@@ -73,7 +85,12 @@ export default {
       },
       erase(){
         this.dessin.clear();
-      }
+      },
+      load(filename) {
+        classifier.load(filename, function () {
+            console.log('MODEL LOADED FROM FILE');
+        });
+      },
     },
     beforeMount(){
       fetch(`http://127.0.0.1:3000/api/quizz/${this.$route.params.id}`)
@@ -92,6 +109,13 @@ export default {
         "#000000",
         5
       );
+      this.featureExtractor = ml5.featureExtractor('MobileNet', this.options, function (argument) {
+        console.log('MODEL READY');
+        this.classifier = this.featureExtractor.classification();
+        this.load("/model/model.json")
+        document.body.style.display = "block";
+      });
+      
     },
     computed: {
       hiddenWord(){
