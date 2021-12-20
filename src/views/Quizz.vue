@@ -1,17 +1,26 @@
 <template>
   <nav-bar></nav-bar>
-  <div>{{$route.params.id}}</div>
-  <div>{{quizz.name}}</div>
-  <div>{{quizz.description}}</div>
-  <div class="word"><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
-  <div>
-    <div @mouseup="guess" id="canvasDiv"></div>
-    <img style="display:none;" src="" alt="" id="dessin">
-    <input class="result" type="text" disabled v-model="guessText"/>
-    <button @click="erase">Effacer</button>
-  </div>
+  <section class="mt-5" :class="gameIsStart ? 'hidden': 'display'">
+    <h2 class="text-center">En Chargement ...</h2>
+  </section>
+  <section :class="gameIsStart && !gameIsDone ? 'display': 'hidden'">
+    <div class="container mt-5 d-flex flex-column align-items-center">
+      <h2 class="col-12 text-center">{{quizz.name}}</h2>
+    <div>{{points}}/{{this.nbWords}} points</div>
+    <div class="word "><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
+    <div>
+      <div @mouseup="guess" id="canvasDiv"></div>
+      <img style="display:none;" src="" alt="" id="draw">
+      <input class="result" type="text" disabled>
+      <button @click="erase">Effacer</button>
+    </div>
+    </div>
+    
+  </section>
+  
   <div class="end-sceen" v-if="gameIsDone">
     <h1>Bien jouer voyons voir les résultats</h1>
+    <div>{{points}}/{{this.nbWords}} points</div>
   </div>
 </template>
 
@@ -29,12 +38,14 @@ export default {
               currentHiddenWord : "",
               prevWordId : 0,
               gameIsDone: false,
-              dessin : "",
-              guessText : ""
+              draw : "",
+              points: 0,
+              gameIsStart: false,
         }
     },
     methods:{
       startGame(){
+        this.gameIsStart = true;
         this.currentWord = this.quizz.words[0];
         this.currentHiddenWord = this.hiddenWord;
         setInterval(this.showCaracter, 2000);
@@ -76,11 +87,23 @@ export default {
         }
       },
       erase(){
-        this.dessin.clear();
+        this.draw.clear();
       },
       guess(){
-        let imgElement = document.querySelector("#dessin");
-        addAndTest(imgElement, this.dessin);
+        let imgElement = document.querySelector("#draw");
+        addAndTest(imgElement, this.draw);
+        setTimeout(this.checkAnswer, 1000)
+      },
+      checkAnswer(){
+        if(document.querySelector(".result").value == this.currentWord.word){
+          this.points += 1;
+          clearInterval(this.showCaracter);
+          this.changeCurrentWord();
+          this.currentHiddenWord = this.hiddenWord;
+        }
+        else{
+          return
+        }
       }
     },
     beforeMount(){
@@ -88,15 +111,15 @@ export default {
           .then(response=>{return response.json()})
           .then(json=>{
               this.quizz = json;
-              this.startGame();
+              setTimeout(this.startGame, 3000);
           })
     },
     mounted(){
-      this.dessin = new JSCanvas(
+      this.draw = new JSCanvas(
         400,
         400,
         document.querySelector("#canvasDiv"),
-        "#ffffff",
+        "#1111",
         "#000000",
         5
       );
@@ -115,11 +138,20 @@ export default {
         let isCompleted;
         this.currentHiddenWord.indexOf("_") == -1 ? isCompleted = true : isCompleted = false;
         return isCompleted;
+      },
+      nbWords(){
+        return this.quizz.words.length;
       }
     }
 }
 </script>
 
 <style>
-
+.hidden{
+  display: none;
+}
+.word{
+  width:100%,
+  
+}
 </style>

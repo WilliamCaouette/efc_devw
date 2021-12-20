@@ -82,7 +82,6 @@ nav {
   width: 100%;
   margin: 0 auto;
   padding: 10px;
-  background-color: #8ee9f2;
   border-radius: 10px;
 }
 
@@ -102,6 +101,10 @@ nav {
   color: #eee;
   background-color: #2db482;
 } 
+.btn-jouer:hover{
+  color: #fff;
+  text-decoration: none;
+}
 
  .list-quizz h3 {
   font-size: 1.8em;
@@ -146,7 +149,13 @@ nav {
 label {
   padding: 10px;
 }
-
+.explication-text {
+  width: 30%;
+    font-size: 1em;
+    text-align: justify;
+    right: 34%;
+    top: 40%;
+}
 .btn-ajouter {
   width: 100%;
   cursor: pointer;
@@ -175,7 +184,7 @@ label {
   }
   .explication-text {
     width: 30%;
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-align: justify;
     right: 34%;
     top: 40%;
@@ -202,45 +211,51 @@ label {
     top: 35%;
   }
 
-  /* Liste de quizz : */
+    /* Liste de quizz : */
 
-.list-quizz {
-  display: block;
-}
-}
-@media screen and (max-width: 767px) {
-  .icone {
+  .list-quizz {
+    display: block;
+  }
+  }
+  @media screen and (max-width: 767px) {
+    .icone {
+      display: none;
+    }
+    .paint-block {
+      width: 100%;
+      left: 0;
+      height: 40vh;
+      background-repeat: no-repeat;
+      background-image: url("../public/img/bloc_3_huge.png");
+      background-position: center;
+      background-size: contain;
+      justify-content: center;
+    }
+    .explication-text {
+      width: 66%;
+      font-size: 0.9em;
+      text-align: justify;
+      right: 15%;
+      top: 35%;
+    }
+  .btn-jouer {
+    padding: 10px;
+    border-radius: 6px;
+    position: absolute;
+  } 
+  .list-quizz {
+    margin: 0 ;
+    margin-bottom: 0;
+    padding: 6px;
+  }
+  .flex-tier { 
+    flex-basis: 100%;
+  }
+  .word-form{
+    width: 100%;
+  }
+  .desc{
     display: none;
   }
-  .paint-block {
-    width: 100%;
-    left: 0;
-    height: 40vh;
-    background-repeat: no-repeat;
-    background-image: url("../public/img/bloc_3_huge.png");
-    background-position: center;
-    background-size: contain;
-    justify-content: center;
-  }
-  .explication-text {
-    width: 66%;
-    font-size: 0.9em;
-    text-align: justify;
-    right: 15%;
-    top: 35%;
-  }
- .btn-jouer {
-  padding: 10px;
-  border-radius: 6px;
-  position: absolute;
-} 
-.list-quizz {
-  margin: 0 ;
-  margin-bottom: 0;
-  padding: 6px;
-}
-.flex-tier { 
-  flex-basis: 100%;
-}
 }
 </style>

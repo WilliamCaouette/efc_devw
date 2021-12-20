@@ -1,33 +1,31 @@
 <template>
     <nav-bar></nav-bar>
-        <section class="container form-section">
+        <section class="container p-5 form-section">
             <form method="POST" action="../../serveur/api/quizz">
-        <div >
-            <div class="information-form ">
-                <h2>Informations de base du Quizz</h2>
-            <div>
-                <label for="name">Nom du quizz:</label>
-                <input type="text" id="name">
-            </div>
-            <div>
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" cols="30" rows="10" style="resize:none"></textarea>
-            </div>
-        </div>
-        <div class="word-form">
-            <h2>Choisissez vos words</h2>
-            <div v-for="(mot, id) in words" :key="id">
-                <label :for="'mot'+id">{{mot.name}}</label>
-                <input @click="addWordToList(mot)" class="checkBox" type="checkbox" name="mot" :id="'mot'+id">
-            </div>
-        </div>
-        <div class="send-form ">
-            <input class="btn-ajouter text-center" @click="addNewQuizz" value="Ajouter le Quizz">
-        </div>
-
-    </div>
-
-    </form>
+                <div class="container container-items-form">
+                    <div class="information-form ">
+                        <h2>Informations de base du Quizz</h2>
+                    <div>
+                        <label for="name">Nom du quizz:</label>
+                        <input type="text" id="name">
+                    </div>
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="description" cols="30" rows="10" style="resize:none"></textarea>
+                    </div>
+                    </div>
+                    <div class="word-form">
+                        <h2>Choisissez vos words</h2>
+                        <div v-for="(mot, id) in words" :key="id">
+                            <label :for="'mot'+id">{{mot.name}}</label>
+                            <input @click="addWordToList(mot)" class="checkBox" type="checkbox" name="mot" :id="'mot'+id">
+                        </div>
+                    </div>
+                    <div class="send-form ">
+                        <input class="btn-ajouter text-center" @click="addNewQuizz" value="Ajouter le Quizz">
+                    </div>
+                </div>
+            </form>
         </section>
 </template>
 
@@ -106,5 +104,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>
