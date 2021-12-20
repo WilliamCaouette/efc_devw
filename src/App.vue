@@ -3,6 +3,16 @@
 </template>
 
 <style>
+
+body {
+  background-image: url("../public/img/paint_background.jpg");
+  background-color: #cccccc; 
+  height: auto;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+}
+
 /*-- Fonts --*/
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
@@ -44,8 +54,8 @@ nav {
 
 .explication-text {
   font-family: "Roboto", sans-serif;
-  width: 30%;
-  font-size: 1.3em;
+  width: 28%;
+  font-size: 1em;
   text-align: justify;
   right: 48%;
   color: #fff;
@@ -59,6 +69,7 @@ nav {
   position: relative;
   background-image: url("../public/img/bloc_2.svg");
   background-repeat: no-repeat;
+  background-size: contain;
 }
 
 /*-- Liste de quizz : Nom du quizz / Description / Bouton jeu / Image / --*/
@@ -103,17 +114,46 @@ nav {
 
 /*-- Formulaire de quizz : --*/
 
-.addition-form {
-  display: block;
+.form-section {
+  display: flex;
   width: 100%;
-  margin-top: 10%;
-  padding: 10px;
+  margin-top: 2%;
   background-color: #f2f2f2;
   border-radius: 10px;
+  color: #0E4D5E;
+  padding: 5px;
+  justify-content: space-evenly;
 }
 
-.addition-form h2 {
-  color: #0E4D5E;
+.information-form {
+  width: 50%;
+  margin: 0 auto;
+  float: left;
+  padding: 20px;
+
+}
+
+.word-form {
+  width: 50%;
+  margin: 0 auto;
+  float: right;
+  padding: 20px;
+}
+
+label {
+  padding: 10px;
+}
+
+.btn-ajouter {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-family: "Roboto", sans-serif;
+  color: #eee;
+  background-color: #2db482;
+  justify-content: center;
 }
 
 /*-- Media Query --*/
@@ -167,16 +207,17 @@ nav {
 }
 @media screen and (max-width: 767px) {
   .icone {
-    width: 25%;
-    right: 65%;
+    display: none;
   }
   .paint-block {
     width: 100%;
+    left: 0;
     height: 40vh;
     background-repeat: no-repeat;
     background-image: url("../public/img/bloc_3_huge.png");
     background-position: center;
     background-size: contain;
+    justify-content: center;
   }
   .explication-text {
     width: 66%;
