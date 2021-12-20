@@ -19,6 +19,9 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 /*-- Navigation : Titre / Bouton d'ajout --*/
+body{
+  overflow-x:hidden ;
+}
 
 .title {
   color: #eee;

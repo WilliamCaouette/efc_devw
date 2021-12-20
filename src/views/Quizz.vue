@@ -5,7 +5,9 @@
   <div>{{quizz.description}}</div>
   <div class="word"><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
   <div>
-    <div id="canvasDiv"></div>
+    <div @mouseup="guess" id="canvasDiv"></div>
+    <img style="display:none;" src="" alt="" id="dessin">
+    <input class="result" type="text" disabled v-model="guessText"/>
     <button @click="erase">Effacer</button>
   </div>
   <div class="end-sceen" v-if="gameIsDone">
@@ -16,6 +18,7 @@
 <script>
 import { computed } from '@vue/reactivity';
 import NavBar from '../components/NavBar.vue';
+import main from '../../public/scripts/main.js'
 export default {
   components: { NavBar },
     data(){
@@ -27,18 +30,7 @@ export default {
               prevWordId : 0,
               gameIsDone: false,
               dessin : "",
-              options : {
-                version: 1,
-                alpha: 0.25,
-                topk: 3,
-                learningRate: 0.0001,
-                hiddenUnits: 100,
-                epochs: 300,
-                numLabels: 7,
-                batchSize: 0.4,
-              },
-              featureExtractor : "",
-              classifier : ""
+              guessText : ""
         }
     },
     methods:{
@@ -86,11 +78,10 @@ export default {
       erase(){
         this.dessin.clear();
       },
-      load(filename) {
-        classifier.load(filename, function () {
-            console.log('MODEL LOADED FROM FILE');
-        });
-      },
+      guess(){
+        let imgElement = document.querySelector("#dessin");
+        addAndTest(imgElement, this.dessin);
+      }
     },
     beforeMount(){
       fetch(`http://127.0.0.1:3000/api/quizz/${this.$route.params.id}`)
@@ -109,12 +100,6 @@ export default {
         "#000000",
         5
       );
-      this.featureExtractor = ml5.featureExtractor('MobileNet', this.options, function (argument) {
-        console.log('MODEL READY');
-        this.classifier = this.featureExtractor.classification();
-        this.load("/model/model.json")
-        document.body.style.display = "block";
-      });
       
     },
     computed: {
