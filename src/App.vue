@@ -11,6 +11,10 @@ body {
   background-position: center; 
   background-repeat: no-repeat; 
   background-size: cover; 
+  overflow-x:hidden ;
+}
+body.dark{
+  background-image: url("../public/img/paint_background_dark.jpg");
 }
 
 /*-- Fonts --*/
@@ -19,9 +23,6 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 /*-- Navigation : Titre / Bouton d'ajout --*/
-body{
-  overflow-x:hidden ;
-}
 
 .title {
   color: #eee;

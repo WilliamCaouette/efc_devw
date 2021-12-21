@@ -8,7 +8,6 @@
         <!--Section de présentation du Jeu-->
         <div class="block-text">
           <div class="paint-block">
-            <h2 class="explication-text">Explication</h2>
             <p class="position-absolute explication-text">
               Guess My Drawing est un jeu de dessin où le joueur doit déchiffrer un
               mot dans un temps imparti et le faire deviner à l'aide d'un
@@ -59,3 +58,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+body.dark h2{
+  color: #f2f2f2
+}
+</style>

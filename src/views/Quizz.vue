@@ -9,7 +9,7 @@
     <div>{{points}}/{{this.nbWords}} points</div>
     <div class="word "><span v-for="(caracter, index) in currentHiddenWord" :key="index">{{caracter + " "}}</span></div>
     <div>
-      <div @mouseup="guess" id="canvasDiv"></div>
+      <div @touchend="guess" @mouseup="guess" id="canvasDiv"></div>
       <img style="display:none;" src="" alt="" id="draw">
       <input class="result" type="text" disabled>
       <button @click="erase">Effacer</button>
@@ -146,12 +146,15 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .hidden{
   display: none;
 }
 .word{
   width:100%,
   
+}
+body.dark{
+  color: #f2f2f2;
 }
 </style>

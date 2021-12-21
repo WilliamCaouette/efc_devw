@@ -27,15 +27,8 @@ if (!db.has("quizz")) {
 }
 
 if (!db.has("words")) {
-    db.set("words", ["carré", "virgule", "cercle", "trois", "cinq", "coeur", "dollar", "arbre"]);
+    db.set("words", ["carré", "virgule", "cercle", "trois", "cinq", "coeur", "dollar", "triangle"]);
 }
-
-
-/* Pour envoyer un test (SEULEMENT UNE FOIS)
-db.push("quizz.list", {
-  id: shortid.generate(),
-  name: "Test de test",
-});*/
 /* FAIRE UN PUSH DE MOTS COMPRIS PAR L'IA */
 
 //----------------------------------------
