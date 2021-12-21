@@ -16,7 +16,6 @@ const featureExtractor = ml5.featureExtractor('MobileNet', options, function (ar
     console.log('MODEL READY');
     //on attend que le model soit chargé avant de faire quoi que ce soit sur la page
     load("../model/model.json")
-    document.body.style.display = "block";
 
 });
 
@@ -59,7 +58,11 @@ function addAndTest(imgElement, dessin) {
 
 
 
-
+/**
+ * @description charge le modèle entrainé
+ * @author William Caouette
+ * @param {String} filename le chemin vers le fichier model.json
+ */
 function load(filename) {
     classifier.load(filename, function () {
         console.log('MODEL LOADED FROM FILE');
