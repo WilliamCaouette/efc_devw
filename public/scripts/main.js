@@ -1,6 +1,6 @@
 
 
-  
+
 const options = {
     version: 1,
     alpha: 0.25,
@@ -28,6 +28,10 @@ function init(model) {
 
 init();
 
+/**
+ * @description classifie l'image grâce à L'IA
+ * @param {img} imageData capture du dessin
+ */
 function classify(imageData) {
     classifier.classify(imageData, (err, result) => {
         console.log(result);
@@ -39,7 +43,12 @@ function classify(imageData) {
 
 
 
-
+/**
+ * @description ajoute l'image pour ensuite la classifier
+ * @author William Caouette
+ * @param {img} imgElement la capture du dessin
+ * @param {canvas} dessin référence au Canvas
+ */
 function addAndTest(imgElement, dessin) {
     dessin.save(imgElement, ()=>{
         classify(imgElement);

@@ -1,4 +1,3 @@
-// npm run devserver -> lance le script (package.json)
 
 // Initialiser Express
 const express = require("express");
@@ -26,10 +25,10 @@ if (!db.has("quizz")) {
     db.set("quizz", {list:[]});
 }
 
+/* FAIRE UN PUSH DE MOTS COMPRIS PAR L'IA */
 if (!db.has("words")) {
     db.set("words", ["carré", "virgule", "cercle", "trois", "cinq", "coeur", "dollar", "triangle"]);
 }
-/* FAIRE UN PUSH DE MOTS COMPRIS PAR L'IA */
 
 //----------------------------------------
 // Fichiers "statiques"
@@ -45,6 +44,7 @@ app.get("/", (req, res) => {
 app.get("/api/quizz", (req, res) => {
     res.send(db.get("quizz.list"));
 });
+
 app.get("/api/words", (req, res) => {
     res.send(db.get("words"));
 });
@@ -71,8 +71,6 @@ app.post("/api/quizz", (req, res) => {
 
 
 
-//-------------------------------
-// Delete (optionnel)
 
 //-------------------------------
 // 404

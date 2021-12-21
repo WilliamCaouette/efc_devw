@@ -32,7 +32,6 @@ export default {
   components: { NavBar },
     data(){
         return{
-          // le quizz seras récupérer avec un fetch mais pour le moment c'est le placeholder
              quizz: {},
               currentWord : null,
               currentHiddenWord : "",
@@ -44,12 +43,20 @@ export default {
         }
     },
     methods:{
+      /**
+       * @description lance la boucle de jeu
+       * @author William Caouette
+       */
       startGame(){
         this.gameIsStart = true;
         this.currentWord = this.quizz.words[0];
         this.currentHiddenWord = this.hiddenWord;
         setInterval(this.showCaracter, 2000);
       },
+      /**
+       * @description affiche les caractères un à un
+       * @author William Caouette
+       */
       showCaracter(){
         if(!this.isCurrentWordCompleted){
             let index;
@@ -75,8 +82,13 @@ export default {
         }
         
       },
+      /**
+       * @description change le mot actuel pour le prochain
+       * @author William Caouette
+       */
       changeCurrentWord(){
         let nextWordId = this.prevWordId++;
+        console.log(nextWordId);
         if(this.quizz.words[nextWordId]){
           this.currentWord = this.quizz.words[nextWordId];
           this.erase();
@@ -86,14 +98,30 @@ export default {
           console.log("game is done")
         }
       },
+
+      /**
+       * @description efface le canvas en utilisant la librairie de Jean-Michel
+       * @author William Caouette
+       */
       erase(){
         this.draw.clear();
       },
+
+      /**
+       * @description réagit au mouseUp sur le canvas et fait en sorte que l'IA classifie le dessin actuel
+       * fait référence à addAndTest dans le script main.js
+       * @author William Caouette
+       */
       guess(){
         let imgElement = document.querySelector("#draw");
         addAndTest(imgElement, this.draw);
         setTimeout(this.checkAnswer, 1000)
       },
+
+      /**
+       * @description vérifie la réponce de l'IA vs le mot actuelle et ajoute les points s'il le faut
+       * @author William Caouette
+       */
       checkAnswer(){
         if(document.querySelector(".result").value == this.currentWord.word){
           this.points += 1;
@@ -106,6 +134,10 @@ export default {
         }
       }
     },
+    /**
+     * @description fetch les données à l'API sur le serveur
+     * @author William Caouette
+     */
     beforeMount(){
       fetch(`http://127.0.0.1:3000/api/quizz/${this.$route.params.id}`)
           .then(response=>{return response.json()})
@@ -114,6 +146,10 @@ export default {
               setTimeout(this.startGame, 3000);
           })
     },
+    /**
+     * @description crée l'objet draw qui est une référence au canvas à l'aide de la librairy de Jean-Michel
+     * @author William Caouette
+     */
     mounted(){
       this.draw = new JSCanvas(
         400,
@@ -126,21 +162,40 @@ export default {
       
     },
     computed: {
+      /**
+       * @description créé le tableau hiddenword qui est chacune des lettres du mot actuel, mais caché
+       * @author William Caouette
+       * @returns le mot caché
+       */
       hiddenWord(){
         let hiddenWord = [];
-        console.log(this.currentWord);
         for(let i = 0; i < this.currentWord.word.length; i++){
           hiddenWord.push("_");
         }
         return hiddenWord;
       },
+      /**
+       * @description retourne si le mot est entièrement affiché où non
+       * @author William Caouette
+       * @returns boolean qui représente si le mot est entièrement affiché ou non
+       */
       isCurrentWordCompleted(){
         let isCompleted;
         this.currentHiddenWord.indexOf("_") == -1 ? isCompleted = true : isCompleted = false;
         return isCompleted;
       },
+      /**
+       * @description retourne Le nombre de mots dans le quizz actuel
+       * @author William Caouette
+       * @returns nombre de mots dans le quizz
+       */
       nbWords(){
-        return this.quizz.words.length;
+        if(this.quizz.words){
+          return this.quizz.words.length;
+        }
+        else{
+          return "?"
+        }
       }
     }
 }

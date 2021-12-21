@@ -9,7 +9,7 @@
       </ul>
       <div class="container-dark">
         <img v-if="!themeDark" @click="changeTheme" src="img/Lune.svg" class="fluide" alt="">
-        <img v-if="themeDark" @click="changeTheme" src="img/Soleil.svg" class="fluide" alt="">
+        <img v-else @click="changeTheme" src="img/Soleil.svg" class="fluide" alt="">
       </div>
       <router-view />
     </div>
@@ -18,13 +18,18 @@
 
 <script>
 export default {
+  /**
+   * @description vérifie le Theme enregistrer dans le local storage et set la variable en conséquent
+   * @author William Caouette
+   */
   beforeMount(){
     if(localStorage.getItem("theme")){
-      this.themeDark = localStorage.getItem("theme");
-      if(localStorage.getItem("theme")){
+      
+      if(localStorage.getItem("theme") == "false"){
+        this.themeDark = false;
         document.body.classList.add("dark");
       }else{
-        return;
+        this.themeDark = true;
       }
       
     }
@@ -38,6 +43,10 @@ export default {
     }
   },
   methods:{
+    /**
+     * @description change le thème de la page et l'enregistre dans le localStorage
+     * @author William Caouette
+     */
     changeTheme(){
       console.log(this.themeDark)
       this.themeDark = !this.themeDark;

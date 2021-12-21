@@ -33,6 +33,10 @@
 import NavBar from "../components/NavBar.vue";
 export default {
   components: { NavBar },
+  /**
+   * @description fetch les mots dans la base de donnée
+   * @author William Caouette
+   */
     beforeMount(){
         fetch("http://127.0.0.1:3000/api/words")
             .then(response=>{return response.json()})
@@ -49,6 +53,11 @@ export default {
         }
     },
     methods:{
+        /**
+         * @description ajoute un mot à la liste de mot selectionner en empêchant d'aller au dessus du maximum
+         * @author William Caouette
+         * @param {string} word le mot sur lequel on à cliqué
+         */
         addWordToList(word){
             if(word.isChoose == false && this.list.length < 5){
                 this.list.push(word.name);
@@ -71,6 +80,10 @@ export default {
                 })
             }
         },
+        /**
+         * @description fetch les données à l'API pour ajouter le nouveau quizz à la base de donnée
+         * @author William Caouette
+         */
           addNewQuizz(){
             let newQuizz = {
                 id: "",
@@ -94,6 +107,11 @@ export default {
         }
     },
     computed:{
+        /**
+         * @description retourne les mots selectionnées
+         * @author William Caouette
+         * @returns liste des mots choisis
+         */
         choseWords(){
             return this.words.filter((word)=>{
                 return word.isChoose

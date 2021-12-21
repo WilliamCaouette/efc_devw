@@ -47,6 +47,9 @@ export default {
       quizzList: [],
     };
   },
+  /**
+   * @description fetch les quizz depuis l'API
+   */
   beforeMount() {
     fetch("http://127.0.0.1:3000/api/quizz")
       .then((response) => {
