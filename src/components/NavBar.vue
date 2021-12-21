@@ -66,9 +66,7 @@ export default {
   width: 100%;
   height: auto;
 }
-.container-dark{
-  width:2vw;
-}
+
 .navbar-nav{
   margin-left: 30%;
 }

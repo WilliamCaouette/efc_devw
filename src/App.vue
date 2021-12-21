@@ -49,7 +49,9 @@ h1 a:hover {
 nav {
   background-color: #08454c;
 }
-
+.container-dark{
+  width:2vw;
+}
 /*-- Explication : Icône / Bloc peinture / Texte --*/
 
 .icone {
@@ -211,7 +213,9 @@ label {
     right: 28%;
     top: 35%;
   }
-
+  .container-dark{
+    width: 3vw;
+  }
     /* Liste de quizz : */
 
   .list-quizz {
@@ -221,6 +225,9 @@ label {
   @media screen and (max-width: 767px) {
     .icone {
       display: none;
+    }
+    .container-dark{
+      width: 10vw;
     }
     .paint-block {
       width: 100%;
