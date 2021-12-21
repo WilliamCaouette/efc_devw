@@ -87,7 +87,7 @@ export default {
        * @author William Caouette
        */
       changeCurrentWord(){
-        let nextWordId = this.prevWordId++;
+        let nextWordId = this.prevWordId +=1;
         console.log(nextWordId);
         if(this.quizz.words[nextWordId]){
           this.currentWord = this.quizz.words[nextWordId];
